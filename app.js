@@ -1,36 +1,21 @@
-// Singleton Pattern: Singleton pentru gestionarea stocului de mașini
-var CarStock = (function () {
-    var instance;
-  
-    function init() {
-      // Privat: Variabile și funcționalități ale instanței
-      var stock = [];
-  
-      // Public: Metodele singletonului
-      return {
-        addCar: function (car) {
-          stock.push(car);
-          console.log('Mașina adăugată în stoc:', car);
-        },
-        removeCar: function (car) {
-          var index = stock.indexOf(car);
-          if (index > -1) {
-            stock.splice(index, 1);
-            console.log('Mașina eliminată din stoc:', car);
-          }
-        },
-        getStock: function () {
-          return stock;
-        }
-      };
-    }
+// Adapter Pattern: Adapter pentru gestionarea stocului de mașini
+var CarStockAdapter = (function () {
+    var stock = [];
   
     return {
-      getInstance: function () {
-        if (!instance) {
-          instance = init();
+      addCar: function (car) {
+        stock.push(car);
+        console.log('Mașina adăugată în stoc:', car);
+      },
+      removeCar: function (car) {
+        var index = stock.indexOf(car);
+        if (index > -1) {
+          stock.splice(index, 1);
+          console.log('Mașina eliminată din stoc:', car);
         }
-        return instance;
+      },
+      getStock: function () {
+        return stock;
       }
     };
   })();
@@ -47,7 +32,7 @@ var CarStock = (function () {
       return this.make + ' ' + this.model;
     }
   }
-  
+
   // Decorator Pattern: Decorator pentru adăugarea de funcționalități suplimentare la obiectul Car
   function CarDecorator(car) {
     this.car = car;
@@ -144,7 +129,7 @@ var CarStock = (function () {
                   var decoratedCar = new YearDecorator(car);
           
                   // Adaugă mașina în stoc și reafișează lista de mașini
-                  CarStock.getInstance().addCar(decoratedCar);
+                  CarStockAdapter.addCar(decoratedCar);
                   this.renderCarList(carListElement);
                   form.reset();
                 }
@@ -155,7 +140,7 @@ var CarStock = (function () {
             },
           
             renderCarList: function (element) {
-              var stock = CarStock.getInstance().getStock();
+              var stock = CarStockAdapter.getStock();
               var carList = '';
           
               stock.forEach(function (car) {
