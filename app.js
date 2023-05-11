@@ -1,4 +1,4 @@
-// Adapter Pattern: Adapter pentru gestionarea stocului de mașini
+// Adapter Pattern: Adapter pentru gestionarea a stocului de mașini
 var CarStockAdapter = (function () {
     var stock = [];
   
